@@ -1,24 +1,26 @@
-FROM hmemcpy/hie:8.6.5
+FROM nixos/nix
 
-# This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
-# property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
-# will be updated to match your local UID/GID (when using the dockerFile property).
-# See https://aka.ms/vscode-remote/containers/non-root-user for details.
+ARG GHC_VERSION=ghc881
 ARG USERNAME=vscode
-ARG USER_UID=1000
+ARG USER_UID=2001
 ARG USER_GID=$USER_UID
 
-# Set to false to skip installing zsh and Oh My ZSH!
-ARG INSTALL_ZSH="false"
+RUN apk add --no-cache --update coreutils ca-certificates
+RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
 
-# Location and expected SHA for common setup script - SHA generated on release
-ARG COMMON_SCRIPT_SOURCE="https://raw.githubusercontent.com/microsoft/vscode-dev-containers/master/script-library/common-alpine.sh"
-ARG COMMON_SCRIPT_SHA="dev-mode"
+RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+RUN nix-channel --options http2 false --update
 
-# Configure apt and install packages
-RUN apk update \
-    && apk add --no-cache wget coreutils ca-certificates \
-    && wget -q -O /tmp/common-setup.sh $COMMON_SCRIPT_SOURCE \
-    && if [ "$COMMON_SCRIPT_SHA" != "dev-mode" ]; then echo "$COMMON_SCRIPT_SHA /tmp/common-setup.sh" | sha256sum -c - ; fi \
-    && /bin/ash /tmp/common-setup.sh "$INSTALL_ZSH" "$USERNAME" "$USER_UID" "$USER_GID" \
-    && rm /tmp/common-setup.sh
+RUN nix-env -iA cachix -f https://cachix.org/api/v1/install
+RUN cachix use all-hies
+
+RUN nix-env -iA nixpkgs.haskell.compiler.$GHC_VERSION
+RUN nix-env -iA nixpkgs.haskellPackages.cabal-install
+RUN nix-env -iA nixpkgs.haskellPackages.liquidhaskell
+RUN nix-env -iA nixpkgs.haskellPackages.liquidhaskell-cabal
+RUN nix-env -iA nixpkgs.z3
+RUN nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/master
+
+COPY setup.sh /tmp/
+RUN /bin/ash /tmp/setup.sh "$USERNAME" "$USER_UID" "$USER_GID"
+RUN rm /tmp/setup.sh
