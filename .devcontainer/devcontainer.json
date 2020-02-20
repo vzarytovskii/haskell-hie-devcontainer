@@ -1,12 +1,19 @@
 {
-    "name": "GHC 8.8.1 with Cabal, HIE, LiquidHaskell",
+    "name": "DevContainer for Haskell (GHC 8.8.1, Stack, Cabal, HIE, LiquidHaskell, Phoityne)",
     "dockerFile": "Dockerfile",
+    "context":"..",
     "runArgs": [],
     "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "languageServerHaskell.hlintOn": true,
+        "languageServerHaskell.liquidOn": true,
+        "languageServerHaskell.enableHIE": true
     },
     "remoteUser": "vscode",
     "extensions": [
-        "alanz.vscode-hie-server"
+        "justusadam.language-haskell",
+        "alanz.vscode-hie-server",
+        "phoityne.phoityne-vscode",
+        "eriksik2.vscode-ghci"
     ]
 }

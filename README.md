@@ -1,8 +1,10 @@
-# DevContainer for Haskell (GHC 8.8.1, Cabal, HIE, LiquidHaskell)
+# DevContainer for Haskell (GHC 8.8.1, Stack, Cabal, HIE, LiquidHaskell, Phoityne)
 
 ## What is this
 
-This is a [DevContainer](https://code.visualstudio.com/docs/remote/containers) environment for Visual Studio Code, allowing automatically installing the Haskell compiler (GHC), HIE (Haskell IDE Engine), Cabal, LiquidHaskell and the necessary Visual Studio Code extensions to set up a Haskell development environment with zero additional effort.
+This is a DevContainer <sup>[[1](https://code.visualstudio.com/docs/remote/containers)][[2](https://code.visualstudio.com/docs/remote/containers-advanced)]</sup> environment for Visual Studio Code, allowing automatically installing the Haskell compiler (GHC), Stack, Cabal, HIE (Haskell IDE Engine), LiquidHaskell and the necessary Visual Studio Code extensions to set up a Haskell development environment with zero additional effort.
+
+**Note**: For debugging support, please refer to [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode) extension documentation.
 
 ## How to use this
 
@@ -12,7 +14,7 @@ Place the `.devcontainer` directory in the root of your project, and the next ti
 
 ![image](https://user-images.githubusercontent.com/601206/73298150-7bfac580-4215-11ea-81d3-a8fabab98e30.png)
 
-**Note**: building the container might take a few minutes until all dependencies have finished downloading.
+**Note**: building the container might take a few minutes until all dependencies have finished downloading and installing.
 
 ## How does it work
 
@@ -30,8 +32,10 @@ The `Dockerfile` contains the following:
    * Configuration for [Cachix](https://cachix.org/) - a binary cache for Nix
    * Glasgow Haskell Compiler (GHC) version 8.8.1
    * HIE ([haskell-ide-engine](https://github.com/haskell/haskell-ide-engine)) for GHC 8.8.1
+   * [Stack](https://docs.haskellstack.org/en/stable/README/)
    * [Cabal](https://www.haskell.org/cabal/) for GHC 8.8.1
    * [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
+   * [Haskell Syntax Highlighting](https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell), [Haskell Language Server](https://marketplace.visualstudio.com/items?itemName=alanz.vscode-hie-server), [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode), and [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci) VSCode extensions.
 2. A script to install some additional tools (such as git), as well as configuring a special user `vscode` to allow access from VSCode.
 
 The `devcontainer.json` has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the `Dockerfile`).
