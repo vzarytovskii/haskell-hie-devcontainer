@@ -33,10 +33,10 @@ An image, based on [`nixos/nix/`](https://hub.docker.com/r/nixos/nix/), an Alpin
 Additional software installed:
 
 * Configuration for [Cachix](https://cachix.org/) - a binary cache for Nix
-* Glasgow Haskell Compiler (GHC) version 8.8.1
-* HIE ([haskell-ide-engine](https://github.com/haskell/haskell-ide-engine)) for GHC 8.8.1
+* Glasgow Haskell Compiler (GHC) version 8.6.5
+* HIE ([haskell-ide-engine](https://github.com/haskell/haskell-ide-engine)) for GHC 8.6.5
 * [Stack](https://docs.haskellstack.org/en/stable/README/)
-* [Cabal](https://www.haskell.org/cabal/) for GHC 8.8.1
+* [Cabal](https://www.haskell.org/cabal/) for GHC 8.6.5
 * [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
 * Following haskell packages (via [nix](https://nixos.org/nixos/packages.html)): `hlint, hindent, phoityne-vscode, haskell-dap, liquidhaskell, liquidhaskell-cabal, stylish-haskell`.
 * Following Alpine (via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management)): `ca-certificates, git, openssh-client, less, bash, libgcc, libstdc++, curl, procps, coreutils, krb5-libs, libintl, libssl1.1, lttng-ust, tzdata, userspace-rcu, zlib, shadow, sudo`.

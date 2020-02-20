@@ -1,6 +1,6 @@
 FROM nixos/nix
 
-ARG GHC_VERSION=ghc881
+ARG GHC_VERSION=ghc865
 ARG USERNAME=vscode
 ARG USER_UID=2001
 ARG USER_GID=$USER_UID
@@ -31,3 +31,11 @@ RUN groupadd --gid $USER_GID $USERNAME
 RUN useradd -s /bin/ash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME
 RUN chmod 0440 /etc/sudoers.d/$USERNAME
+RUN chmod a+rw /nix/var/nix/gcroots/per-user/
+
+# To init global-project
+RUN (sudo -u $USERNAME -- stack ghc -- --version 2>/dev/null) || true
+
+RUN sudo -u $USERNAME -- stack config --system-ghc set system-ghc --global true
+RUN sudo -u $USERNAME -- stack config --system-ghc set install-ghc --global false
+RUN sudo -u $USERNAME -- stack config --system-ghc set resolver ghc-8.6.5
