@@ -22,6 +22,8 @@ RUN nix-env -iA nixpkgs.haskellPackages.liquidhaskell-cabal
 RUN nix-env -iA nixpkgs.haskellPackages.phoityne-vscode
 RUN nix-env -iA nixpkgs.haskellPackages.haskell-dap
 RUN nix-env -iA nixpkgs.haskellPackages.hlint
+RUN nix-env -iA nixpkgs.haskellPackages.hindent
+RUN nix-env -iA nixpkgs.haskellPackages.stylish-haskell
 
 RUN nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/master
 

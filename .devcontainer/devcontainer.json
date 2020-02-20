@@ -14,6 +14,8 @@
         "justusadam.language-haskell",
         "alanz.vscode-hie-server",
         "phoityne.phoityne-vscode",
-        "eriksik2.vscode-ghci"
+        "eriksik2.vscode-ghci",
+        "edka.haskutil",
+        "sergey-kintsel.haskell-formatter-vscode-extension"
     ]
 }
