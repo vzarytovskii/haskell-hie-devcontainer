@@ -28,15 +28,26 @@ For more information and setup, read the official documentation: <https://code.v
 
 The [`Dockerfile`](.devcontainer/Dockerfile) contains the following:
 
-1. An image, based on [`nixos/nix/`](https://hub.docker.com/r/nixos/nix/), an Alpine image that contains the [Nix package manager](https://nixos.org/nix/), as well as the following:
+1. An image, based on [`nixos/nix/`](https://hub.docker.com/r/nixos/nix/), an Alpine image that contains the [Nix package manager](https://nixos.org/nix/).
+
+   Additional software installed:
    * Configuration for [Cachix](https://cachix.org/) - a binary cache for Nix
    * Glasgow Haskell Compiler (GHC) version 8.8.1
    * HIE ([haskell-ide-engine](https://github.com/haskell/haskell-ide-engine)) for GHC 8.8.1
    * [Stack](https://docs.haskellstack.org/en/stable/README/)
    * [Cabal](https://www.haskell.org/cabal/) for GHC 8.8.1
    * [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
-   * [Haskell Syntax Highlighting](https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell), [Haskell Language Server](https://marketplace.visualstudio.com/items?itemName=alanz.vscode-hie-server), [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode), and [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci) VSCode extensions.
-2. A script to install some additional tools (such as git), as well as configuring a special user `vscode` to allow access from VSCode.
+   * [Hlint](https://github.com/ndmitchell/hlint)
+   * [phoityne-vscode](https://github.com/phoityne/phoityne-vscode)
+   * [haskell-dap](https://github.com/phoityne/haskell-dap)
+   * Following Alpine (via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management)): `ca-certificates, git, openssh-client, less, bash, libgcc, libstdc++, curl, procps, coreutils, krb5-libs, libintl, libssl1.1, lttng-ust, tzdata, userspace-rcu, zlib, shadow, sudo`
+
+   Following VSCode extensions are installed after container is started:
+   * [Haskell Syntax Highlighting](https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell).
+   * [Haskell Language Server](https://marketplace.visualstudio.com/items?itemName=alanz.vscode-hie-server).
+   * [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode).
+   * [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci).
+
 
 The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)).
 

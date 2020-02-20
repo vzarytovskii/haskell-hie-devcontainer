@@ -5,7 +5,7 @@ ARG USERNAME=vscode
 ARG USER_UID=2001
 ARG USER_GID=$USER_UID
 
-RUN apk add --no-cache --update coreutils ca-certificates git openssh-client less bash libgcc libstdc++ curl procps coreutils krb5-libs libintl libssl1.1 lttng-ust tzdata userspace-rcu zlib shadow sudo
+RUN apk add --no-cache --update ca-certificates git openssh-client less bash libgcc libstdc++ curl procps coreutils krb5-libs libintl libssl1.1 lttng-ust tzdata userspace-rcu zlib shadow sudo
 
 RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable
 RUN nix-channel --options http2 false --update
