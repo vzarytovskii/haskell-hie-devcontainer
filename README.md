@@ -1,4 +1,4 @@
-# DevContainer for Haskell (GHC 8.8.1, Stack, Cabal, HIE, LiquidHaskell, Phoityne)
+# VSCode DevContainer for Haskell
 
 ## What is this
 
@@ -22,11 +22,11 @@ Visual Studio Code supports [Developing inside a Container](https://code.visuals
 
 Pressing **Reopen in Container** will perform the automated steps to launch the container, and set up the environment.
 
-For more information and setup, read the official documentation: <https://code.visualstudio.com/docs/remote/containers>
+For more information and setup, read the official documentation: <https://code.visualstudio.com/docs/remote/containers> and <https://code.visualstudio.com/docs/remote/containers-advanced>
 
 ## What's in the box
 
-The `Dockerfile` contains the following:
+The [`Dockerfile`](.devcontainer/Dockerfile) contains the following:
 
 1. An image, based on [`nixos/nix/`](https://hub.docker.com/r/nixos/nix/), an Alpine image that contains the [Nix package manager](https://nixos.org/nix/), as well as the following:
    * Configuration for [Cachix](https://cachix.org/) - a binary cache for Nix
@@ -38,6 +38,6 @@ The `Dockerfile` contains the following:
    * [Haskell Syntax Highlighting](https://marketplace.visualstudio.com/items?itemName=justusadam.language-haskell), [Haskell Language Server](https://marketplace.visualstudio.com/items?itemName=alanz.vscode-hie-server), [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode), and [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci) VSCode extensions.
 2. A script to install some additional tools (such as git), as well as configuring a special user `vscode` to allow access from VSCode.
 
-The `devcontainer.json` has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the `Dockerfile`).
+The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)).
 
 This is based on the [Alpine devcontainer](https://github.com/microsoft/vscode-dev-containers/tree/master/containers/alpine-3.10-git/.devcontainer) from Microsoft and [DevContainer for HIE (Haskell IDE Engine)](https://github.com/hmemcpy/haskell-hie-devcontainer) by [Igal Tabachnik](https://github.com/hmemcpy).
