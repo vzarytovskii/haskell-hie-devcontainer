@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "reveal": "always",
+    "panel": "new"
+  },
+  "tasks": [
+    {
+      "label": "Build (unoptimized)",
+      "type": "shell",
+      "command": "stack build --fast",
+      "group": "build",
+      "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build (optimized)",
+      "type": "shell",
+      "command": "stack build",
+      "group": "build",
+      "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Install (unoptimized)",
+      "type": "shell",
+      "command": "stack install --fast",
+      "group": {
+          "kind": "build",
+          "isDefault": true
+      },
+      "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Install (optimized)",
+      "type": "shell",
+      "command": "stack install",
+      "group": "build",
+      "presentation": {
+          "focus": true,
+          "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+        "label": "Generate Hoogle database",
+        "type": "shell",
+        "command": "stack hoogle --rebuild",
+        "presentation": {
+            "focus": true,
+            "panel": "dedicated"
+        },
+        "problemMatcher": []
+    },
+    {
+        "label": "Start Hoogle server",
+        "type": "shell",
+        "command": "stack hoogle --server",
+        "presentation": {
+            "reveal": "never",
+            "panel": "dedicated"
+        },
+        "problemMatcher": [],
+        "runOptions": {
+            "runOn": "folderOpen"
+        }
+    },
+    {
+      "isBackground": true,
+      "type": "shell",
+      "label": "Watch",
+      "command": "stack build --test --no-run-tests --file-watch"
+    }
+  ]
+}

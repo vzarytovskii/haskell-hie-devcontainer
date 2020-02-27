@@ -1,6 +1,8 @@
 FROM nixos/nix
 
 ARG GHC_VERSION=ghc865
+ARG HIE_VERSION=master
+
 ARG USERNAME=vscode
 ARG USER_UID=2001
 ARG USER_GID=$USER_UID
@@ -25,7 +27,7 @@ RUN nix-env -iA nixpkgs.haskellPackages.hlint
 RUN nix-env -iA nixpkgs.haskellPackages.hindent
 RUN nix-env -iA nixpkgs.haskellPackages.stylish-haskell
 
-RUN nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/master
+RUN nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/${HIE_VERSION}
 
 RUN groupadd --gid $USER_GID $USERNAME
 RUN useradd -s /bin/ash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME
@@ -39,3 +41,6 @@ RUN (sudo -u $USERNAME -- stack ghc -- --version 2>/dev/null) || true
 RUN sudo -u $USERNAME -- stack config --system-ghc set system-ghc --global true
 RUN sudo -u $USERNAME -- stack config --system-ghc set install-ghc --global false
 RUN sudo -u $USERNAME -- stack config --system-ghc set resolver ghc-8.6.5
+
+RUN nix-collect-garbage --delete-old
+RUN nix-store --optimise
