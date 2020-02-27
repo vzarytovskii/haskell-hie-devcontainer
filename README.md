@@ -39,7 +39,7 @@ Additional software installed:
 * [Cabal](https://www.haskell.org/cabal/) for GHC 8.6.5
 * [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
 * Following haskell packages (via [nix](https://nixos.org/nixos/packages.html)): `hlint, hindent, phoityne-vscode, haskell-dap, liquidhaskell, liquidhaskell-cabal, stylish-haskell`.
-* Following Alpine (via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management)): `ca-certificates, git, openssh-client, less, bash, libgcc, libstdc++, curl, procps, coreutils, krb5-libs, libintl, libssl1.1, lttng-ust, tzdata, userspace-rcu, zlib, shadow, sudo`.
+* Following Alpine packages (via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management)): `ca-certificates, git, openssh-client, less, bash, libgcc, libstdc++, curl, procps, coreutils, krb5-libs, libintl, libssl1.1, lttng-ust, tzdata, userspace-rcu, zlib, shadow, sudo`.
 
 Following VSCode extensions are installed after container is started:
 
