@@ -44,3 +44,4 @@ RUN sudo -u $USERNAME -- stack config --system-ghc set resolver ghc-8.6.5
 
 RUN nix-collect-garbage --delete-old
 RUN nix-store --optimise
+RUN nix-store --verify --check-contents
