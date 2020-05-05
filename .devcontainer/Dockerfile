@@ -49,3 +49,4 @@ RUN sudo -u $USERNAME -- hoogle data
 
 RUN nix-collect-garbage --delete-old
 RUN nix-store --optimise
+RUN nix-store --verify --check-contents
