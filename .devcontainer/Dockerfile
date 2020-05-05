@@ -26,6 +26,9 @@ RUN nix-env -iA nixpkgs.haskellPackages.haskell-dap
 RUN nix-env -iA nixpkgs.haskellPackages.hlint
 RUN nix-env -iA nixpkgs.haskellPackages.hindent
 RUN nix-env -iA nixpkgs.haskellPackages.stylish-haskell
+RUN nix-env -iA nixpkgs.haskellPackages.hoogle
+RUN nix-enb -iA nixpkgs.haskellPackages.pointfree
+RUN nix-env -iA nixpkgs.haskellPackages.pointful
 
 RUN nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/${HIE_VERSION}
 
@@ -41,6 +44,8 @@ RUN (sudo -u $USERNAME -- stack ghc -- --version 2>/dev/null) || true
 RUN sudo -u $USERNAME -- stack config --system-ghc set system-ghc --global true
 RUN sudo -u $USERNAME -- stack config --system-ghc set install-ghc --global false
 RUN sudo -u $USERNAME -- stack config --system-ghc set resolver ghc-8.6.5
+
+RUN sudo -u $USERNAME -- hoogle data
 
 RUN nix-collect-garbage --delete-old
 RUN nix-store --optimise
