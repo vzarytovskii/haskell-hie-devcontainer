@@ -1,5 +1,5 @@
 {
-    "name": "DevContainer for Haskell (GHC 8.8.1, Stack, Cabal, HIE, LiquidHaskell, Phoityne)",
+    "name": "DevContainer for Haskell (GHC 8.6.5, Stack, Cabal, HIE, LiquidHaskell, LSP, DAP, etc.)",
     "dockerFile": "Dockerfile",
     "context":"..",
     "runArgs": [],
