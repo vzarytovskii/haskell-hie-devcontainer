@@ -2,7 +2,7 @@ FROM nixos/nix
 
 ENV GHC_VERSION=ghc865 \
     HIE_VERSION=master \
-    STACK_RESOLVER=lts-15.0 \
+    STACK_RESOLVER=lts-14.27 \
     USERNAME=vscode \
     USER_UID=2001 \
     USER_GID=2001
@@ -27,6 +27,7 @@ RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable && \
     nix-env -iA nixpkgs.haskellPackages.hoogle && \
     nix-env -iA nixpkgs.haskellPackages.pointfree && \
     nix-env -iA nixpkgs.haskellPackages.pointful && \
+    nix-env -iA nixpkgs.haskellPackages.retrie && \
     nix-env -iA unstableFallback.selection --arg selector "p: { inherit (p) $GHC_VERSION; }" -f https://github.com/infinisil/all-hies/tarball/${HIE_VERSION}
 
 # Do some cleanup
