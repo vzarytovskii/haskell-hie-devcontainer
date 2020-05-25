@@ -5,7 +5,9 @@ ENV GHC_VERSION=ghc865 \
     STACK_RESOLVER=lts-14.27 \
     USERNAME=vscode \
     USER_UID=2001 \
-    USER_GID=2001
+    USER_GID=2001 \
+    NIXPKGS_ALLOW_BROKEN=1 \
+    NIXPKGS_ALLOW_UNFREE=1
 
 RUN apk add --no-cache --update ca-certificates git openssh-client less bash libgcc libstdc++ curl procps coreutils krb5-libs libintl libssl1.1 lttng-ust tzdata userspace-rcu zlib shadow sudo
 
