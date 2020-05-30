@@ -38,8 +38,9 @@ Additional software installed:
 * [Stack](https://docs.haskellstack.org/en/stable/README/)
 * [Cabal](https://www.haskell.org/cabal/) for GHC 8.6.5
 * [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
-* Following haskell packages (via [nix](https://nixos.org/nixos/packages.html)): `hlint, hindent, phoityne-vscode, haskell-dap, liquidhaskell, liquidhaskell-cabal, stylish-haskell, hoogle, pointfree, pointful, retrie`.
 * Following Alpine packages (via [apk](https://wiki.alpinelinux.org/wiki/Alpine_Linux_package_management)): `ca-certificates, git, openssh-client, less, bash, libgcc, libstdc++, curl, procps, coreutils, krb5-libs, libintl, libssl1.1, lttng-ust, tzdata, userspace-rcu, zlib, shadow, sudo`.
+* Following haskell packages (via [nix](https://nixos.org/nixos/packages.html)): `alex, c2hs, cpphs, doctest, greencard, happy hlint, hindent, phoityne-vscode, haskell-dap, liquidhaskell, liquidhaskell-cabal, stylish-haskell, hoogle, pointfree, pointful, retrie`.
+  * __NOTE__: Some packages (such as `greencard, liquidhaskell, hindent`) __have been temporary disabled from installing via Nix__ due to the NixOS issues with some packages (more info: [Reddit thread](https://www.reddit.com/r/NixOS/comments/fdwrnr/broken_haskell_packages_in_nixpkgs/), [NisOS discourse thread](https://discourse.nixos.org/t/call-to-action-for-updating-haskell-packages-after-bump-to-lts-15/6071)). If you still need them, install locally via stack/cabal.
 
 Following VSCode extensions are installed after container is started:
 
@@ -47,8 +48,9 @@ Following VSCode extensions are installed after container is started:
 * [Haskell Language Server](https://marketplace.visualstudio.com/items?itemName=alanz.vscode-hie-server).
 * [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode).
 * [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci).
-* [Haskutil](https://marketplace.visualstudio.com/items?itemName=edka.haskutil)
-* [Haskell Code Formatter](https://marketplace.visualstudio.com/items?itemName=sergey-kintsel.haskell-formatter-vscode-extension)
+* [Haskutil](https://marketplace.visualstudio.com/items?itemName=edka.haskutil).
+* [Haskell Code Formatter](https://marketplace.visualstudio.com/items?itemName=sergey-kintsel.haskell-formatter-vscode-extension).
+* [LiquidHaskell](https://marketplace.visualstudio.com/items?itemName=MustafaHafidi.liquidhaskell-diagnostics).
 
 The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)).
 

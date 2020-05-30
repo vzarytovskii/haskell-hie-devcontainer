@@ -6,12 +6,11 @@ ENV GHC_VERSION=ghc865 \
     USERNAME=vscode \
     USER_UID=2001 \
     USER_GID=2001 \
-    NIXPKGS_ALLOW_BROKEN=1 \
     NIXPKGS_ALLOW_UNFREE=1
 
-RUN apk add --no-cache --update ca-certificates git openssh-client less bash libgcc libstdc++ curl procps coreutils krb5-libs libintl libssl1.1 lttng-ust tzdata userspace-rcu zlib shadow sudo
+RUN apk add --no-cache --update ca-certificates git openssh-client less bash libgcc libstdc++ curl procps coreutils krb5-libs pkgconfig libintl libssl1.1 lttng-ust tzdata userspace-rcu zlib shadow sudo
 
-RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable && \
+RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs && \
     nix-channel --options http2 false --update && \
     nix-env -iA cachix -f https://cachix.org/api/v1/install && \
     cachix use all-hies && \
@@ -19,12 +18,18 @@ RUN nix-channel --add https://nixos.org/channels/nixpkgs-unstable && \
     nix-env -iA nixpkgs.haskellPackages.cabal-install && \
     nix-env -iA nixpkgs.stack && \
     nix-env -iA nixpkgs.z3 && \
-    nix-env -iA nixpkgs.haskellPackages.liquidhaskell && \
-    nix-env -iA nixpkgs.haskellPackages.liquidhaskell-cabal && \
     nix-env -iA nixpkgs.haskellPackages.phoityne-vscode && \
+    nix-env -iA nixpkgs.haskellPackages.alex && \
+    nix-env -iA nixpkgs.haskellPackages.c2hs && \
+    nix-env -iA nixpkgs.haskellPackages.cpphs && \
+    nix-env -iA nixpkgs.haskellPackages.doctest && \
+    nix-env -iA nixpkgs.haskellPackages.greencard && \ # Disabled, due to broken package.
+    nix-env -iA nixpkgs.haskellPackages.happy && \
+    nix-env -iA nixpkgs.haskellPackages.liquidhaskell && \ # Disabled, due to broken package.
+    nix-env -iA nixpkgs.haskellPackages.liquidhaskell-cabal && \ # Disabled, due to broken package.
     nix-env -iA nixpkgs.haskellPackages.haskell-dap && \
     nix-env -iA nixpkgs.haskellPackages.hlint && \
-    nix-env -iA nixpkgs.haskellPackages.hindent && \
+    nix-env -iA nixpkgs.haskellPackages.hindent && \ # Disabled, due to broken package.
     nix-env -iA nixpkgs.haskellPackages.stylish-haskell && \
     nix-env -iA nixpkgs.haskellPackages.hoogle && \
     nix-env -iA nixpkgs.haskellPackages.pointfree && \
@@ -51,4 +56,6 @@ RUN ((sudo -u $USERNAME -- stack ghc -- --version 2>/dev/null) || true) && \
     sudo -u $USERNAME -- stack config --system-ghc set install-ghc --global false && \
     sudo -u $USERNAME -- stack config --system-ghc set resolver $STACK_RESOLVER
 
+USER ${USER_UID}:${USER_GID}
+WORKDIR /home/${USERNAME}
 ENTRYPOINT ["/bin/bash"]
