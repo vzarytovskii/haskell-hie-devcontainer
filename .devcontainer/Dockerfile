@@ -77,11 +77,11 @@ RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy haskell-dap hlin
 
 # Install LiquidHaskell from source (because of the isue: https://github.com/ucsd-progsys/liquidhaskell/issues/1680)
 # TODO: Temprorary disable liquidhaskell building, since it is having some issues on 8.8.3
-RUN false && git clone --recursive https://github.com/ucsd-progsys/liquidhaskell.git && \
-    cd liquidhaskell && \
-    git checkout ${LIQUIDHASKELL_VERSION} && \
-    git submodule update --init --recursive && \
-    cabal v2-install --ghc-options="-Wno-unused-imports"
+#RUN git clone --recursive https://github.com/ucsd-progsys/liquidhaskell.git && \
+#    cd liquidhaskell && \
+#    git checkout ${LIQUIDHASKELL_VERSION} && \
+#    git submodule update --init --recursive && \
+#    cabal v2-install --ghc-options="-Wno-unused-imports"
 
 ENV DEBIAN_FRONTEND=dialog
 ENTRYPOINT ["/bin/bash"]
