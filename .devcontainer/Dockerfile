@@ -5,6 +5,7 @@ ENV GHC_VERSION=8.8.3 \
     HLS_VERSION=master \
     HIE_VERSION=master \
     HASKELL_LSP_FLAVOUR=hie \
+    LIQUIDHASKELL_VERSION=tags/v8.4.3-final \
     USERNAME=haskeller \
     USER_UID=2001 \
     USER_GID=2001 \
@@ -72,7 +73,15 @@ RUN echo "Installing \"${HASKELL_LSP_FLAVOUR}\" LSP server" && \
     fi
 
 # Install packages
-RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy liquidhaskell haskell-dap hlint stylish-haskell hoogle retrie QuickCheck
+RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy haskell-dap hlint stylish-haskell hoogle retrie QuickCheck
+
+# Install LiquidHaskell from source (because of the isue: https://github.com/ucsd-progsys/liquidhaskell/issues/1680)
+# TODO: Temprorary disable liquidhaskell building, since it is having some issues on 8.8.3
+RUN false && git clone --recursive https://github.com/ucsd-progsys/liquidhaskell.git && \
+    cd liquidhaskell && \
+    git checkout ${LIQUIDHASKELL_VERSION} && \
+    git submodule update --init --recursive && \
+    cabal v2-install --ghc-options="-Wno-unused-imports"
 
 ENV DEBIAN_FRONTEND=dialog
 ENTRYPOINT ["/bin/bash"]
