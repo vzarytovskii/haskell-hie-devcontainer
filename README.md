@@ -75,7 +75,7 @@ Additional software installed:
 * [Stack](https://docs.haskellstack.org/en/stable/README/).
 * [Cabal](https://www.haskell.org/cabal/).
 * Following Debian packages: `git, curl, xz-utils, gcc, make, libtinfo5, libgmp-dev, zlib1g-dev, bash, sudo, procps, lsb-release, ca-certificates, build-essential, curl, libffi-dev, libffi6, libgmp-dev, libgmp10, libncurses-dev, libncurses5, libtinfo5, libicu-dev, libncurses-dev, z3`.
-* Following haskell packages (via [cabal](https://nixos.org/nixos/packages.html)): `alex, c2hs, cpphs, doctest, greencard, happy hlint, hindent, phoityne-vscode, haskell-dap, liquidhaskell, stylish-haskell, hoogle, retrie`.
+* Following haskell packages (via [cabal](https://nixos.org/nixos/packages.html)): `alex, c2hs, cpphs, doctest, greencard, happy hlint, phoityne-vscode, haskell-dap, liquidhaskell, stylish-haskell, hoogle, retrie`.
 
 Following VSCode extensions are installed after container is started:
 

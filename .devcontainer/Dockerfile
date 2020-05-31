@@ -72,7 +72,7 @@ RUN echo "Installing \"${HASKELL_LSP_FLAVOUR}\" LSP server" && \
     fi
 
 # Install packages
-RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy liquidhaskell haskell-dap hlint hindent stylish-haskell hoogle retrie QuickCheck
+RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy liquidhaskell haskell-dap hlint stylish-haskell hoogle retrie QuickCheck
 
 ENV DEBIAN_FRONTEND=dialog
 ENTRYPOINT ["/bin/bash"]
