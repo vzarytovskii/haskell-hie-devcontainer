@@ -16,6 +16,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag vlza/haskelldevenv:${{ matrix.ghc }}-${{ matrix.resolver }}-$(date +%s)
+      run: docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --build-arg GHC_VERSION=${{ matrix.ghc }} --build-arg STACK_RESOLVER=${{ matrix.resolver }} --tag vlza/haskelldevenv:${{ matrix.ghc }}-${{ matrix.resolver }}-$(date +%s)
 
 # TODO: Trigger release on tag, publish containers.
