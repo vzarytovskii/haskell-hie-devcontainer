@@ -11,11 +11,11 @@ jobs:
       fail-fast: true
       max-parallel: 2
       matrix:
-        ghc: ["8.6.5", "8.8.3"]
-        lsp: ["hie", "hls", "ghcide", "all"]
+        ghc: ["8.8.4"]
+        resolver: ["lts-16.12"]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag vlza/haskelldevenv:${{ matrix.ghc }}-${{ matrix.lsp }}-$(date +%s)
+      run: docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag vlza/haskelldevenv:${{ matrix.ghc }}-${{ matrix.resolver }}-$(date +%s)
 
 # TODO: Trigger release on tag, publish containers.

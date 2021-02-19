@@ -1,5 +1,5 @@
 {
-    "name": "DevContainer for Haskell (GHC 8.8.5, Stack, Cabal, HIE, LiquidHaskell, LSP, DAP, etc.)",
+    "name": "DevContainer for Haskell (GHC, Stack, Cabal, HIE, LSP, DAP, etc.)",
     "dockerFile": "Dockerfile",
     "context":"..",
     "runArgs": [],
@@ -8,14 +8,12 @@
         "languageServerHaskell.hlintOn": true,
         "languageServerHaskell.liquidOn": true,
         "languageServerHaskell.enableHIE": true,
-        "languageServerHaskell.hieVariant": "haskell-ide-engine"
-        // "languageServerHaskell.hieVariant": "haskell-language-server", // Uncomment, if hls is used.
-        // "languageServerHaskell.hieVariant": "ghcide" // Uncomment if ghcide is used.
+        "languageServerHaskell.hieVariant": "haskell-language-server"
     },
     "remoteUser": "haskeller",
     "extensions": [
         "justusadam.language-haskell",
-        "alanz.vscode-hie-server",
+        "haskell.haskell",
         "phoityne.phoityne-vscode",
         "eriksik2.vscode-ghci",
         "edka.haskutil",
