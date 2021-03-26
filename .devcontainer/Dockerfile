@@ -47,6 +47,9 @@ RUN ghcup install cabal
 # Update Cabal.
 RUN cabal update && cabal new-install cabal-install
 
+# Install hls
+RUN ghcup install hls
+
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
 # Init global-project.

@@ -12,11 +12,8 @@
     },
     "remoteUser": "haskeller",
     "extensions": [
-        "justusadam.language-haskell",
         "haskell.haskell",
         "phoityne.phoityne-vscode",
-        "eriksik2.vscode-ghci",
-        "edka.haskutil",
-        "sergey-kintsel.haskell-formatter-vscode-extension"
+        "eriksik2.vscode-ghci"
     ]
 }
