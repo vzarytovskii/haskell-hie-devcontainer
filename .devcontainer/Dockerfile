@@ -50,7 +50,7 @@ RUN cabal update && cabal new-install cabal-install
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
 # Init global-project.
-RUN (stack ghc -- --version 2>/dev/null) || true)
+RUN ((stack ghc -- --version 2>/dev/null) || true)
 
 # Set global defaults for stack.
 RUN stack config --system-ghc set system-ghc --global true && \
