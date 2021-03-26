@@ -71,14 +71,16 @@ This was initially based on the [DevContainer for HIE (Haskell IDE Engine)](http
 
 ### How to build locally
 
-To build the image locally, just run `docker build . --file ./Dockerfile --tag haskelldevenv:latest` from the repository root.
+To build the image locally, just run `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest` from the repository root.
 
 You can override GHC version and Stack resolver by specifying `GHC_VERSION=x.x.x` and `STACK_RESOLVER=...` respectively as a build args.
 
+To run the image, just do `docker run --rm -it haskelldevenv:latest`
+
 For example:
-* `docker build . --file ./Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4`
-* `docker build . --file ./Dockerfile --tag haskelldevenv:latest --build-arg STACK_RESOLVER=lts-16.12`
-* `docker build . --file ./Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-16.12`
+* `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4`
+* `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg STACK_RESOLVER=lts-16.12`
+* `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-16.12`
 
 Valid values for `GHC_VERSION` can be found [here](https://www.haskell.org/ghc/download.html).
 

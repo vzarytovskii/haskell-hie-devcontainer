@@ -23,6 +23,8 @@ USER ${USER_UID}:${USER_GID}
 WORKDIR /home/${USERNAME}
 ENV PATH="/home/${USERNAME}/.local/bin:/home/${USERNAME}/.cabal/bin:/home/${USERNAME}/.ghcup/bin:$PATH"
 
+RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
+
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
     BOOTSTRAP_HASKELL_NO_UPGRADE=yes
 
@@ -64,4 +66,5 @@ RUN stack config --system-ghc set system-ghc --global true && \
 RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle
 
 ENV DEBIAN_FRONTEND=dialog
+
 ENTRYPOINT ["/bin/bash"]
