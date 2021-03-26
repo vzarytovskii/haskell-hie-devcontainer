@@ -1,7 +1,7 @@
 FROM debian:stable
 
-ARG GHC_VERSION=8.8.4
-ARG STACK_RESOLVER=lts-16.12
+ARG GHC_VERSION=8.10.4
+ARG STACK_RESOLVER=lts-17.7
 
 ENV USERNAME=haskeller \
     USER_UID=2001 \
@@ -58,7 +58,7 @@ RUN stack config --system-ghc set system-ghc --global true && \
     stack config --system-ghc set resolver $STACK_RESOLVER
 
 # Install global packages.
-RUN cabal install phoityne-vscode alex c2hs cpphs doctest happy haskell-dap hlint stylish-haskell hoogle retrie QuickCheck
+RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle
 
 ENV DEBIAN_FRONTEND=dialog
 ENTRYPOINT ["/bin/bash"]

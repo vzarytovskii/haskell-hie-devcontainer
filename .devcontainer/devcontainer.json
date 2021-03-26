@@ -17,7 +17,6 @@
         "phoityne.phoityne-vscode",
         "eriksik2.vscode-ghci",
         "edka.haskutil",
-        "sergey-kintsel.haskell-formatter-vscode-extension",
-        "MustafaHafidi.liquidhaskell-diagnostics"
+        "sergey-kintsel.haskell-formatter-vscode-extension"
     ]
 }
