@@ -62,13 +62,13 @@ RUN curl -sSL https://get.haskellstack.org/ | sh
 # Init global-project.
 RUN ((stack ghc -- --version 2>/dev/null) || true)
 
-# Set global custom defaults for stack.
-RUN echo -e "ghc-options:\n  \"\$everything\": -haddock" >> /home/${USERNAME}/.stack/config.yaml
-
 # Set system-ghc, install-ghc and resolver for stack.
 RUN stack config --system-ghc set system-ghc --global true && \
     stack config --system-ghc set install-ghc --global false && \
     stack config --system-ghc set resolver $STACK_RESOLVER
+
+# Set global custom defaults for stack.
+RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.stack/config.yaml
 
 # Install global packages.
 RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle ormolu
