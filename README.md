@@ -48,12 +48,11 @@ For more information and setup, read the official documentation: <https://code.v
 Additional software installed:
 
 * Glasgow Haskell Compiler (GHC) via ghcup-hs.
-* A Haskell LSP server:
-  * HLS ([haskell-language-server](https://github.com/haskell/haskell-language-server)).
+* A Haskell LSP server HLS - ([haskell-language-server](https://github.com/haskell/haskell-language-server)).
 * [Stack](https://docs.haskellstack.org/en/stable/README/).
 * [Cabal](https://www.haskell.org/cabal/).
 * Following Debian packages: `git, curl, xz-utils, gcc, make, libtinfo5, libgmp-dev, zlib1g-dev, bash, sudo, procps, lsb-release, ca-certificates, build-essential, curl, libffi-dev, libffi6, libgmp-dev, libgmp10, libncurses-dev, libncurses5, libtinfo5, libicu-dev, libncurses-dev, z3`.
-* Following haskell packages (via [cabal](https://nixos.org/nixos/packages.html)): `alex, c2hs, cpphs, doctest, greencard, happy hlint, phoityne-vscode, haskell-dap, liquidhaskell, stylish-haskell, hoogle, retrie`.
+* Following Haskell packages (via [cabal](https://nixos.org/nixos/packages.html)): `phoityne-vscode, haskell-dap, hlint, stylish-haskell, hoogle, ormolu`.
 
 Following VSCode extensions are installed after container is started:
 
@@ -61,9 +60,7 @@ Following VSCode extensions are installed after container is started:
 * [Haskell extension](https://marketplace.visualstudio.com/items?itemName=haskell.haskell).
 * [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode).
 * [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci).
-* [Haskutil](https://marketplace.visualstudio.com/items?itemName=edka.haskutil).
-* [Haskell Code Formatter](https://marketplace.visualstudio.com/items?itemName=sergey-kintsel.haskell-formatter-vscode-extension).
-* [LiquidHaskell](https://marketplace.visualstudio.com/items?itemName=MustafaHafidi.liquidhaskell-diagnostics).
+* [Hoogle for VSCode](https://marketplace.visualstudio.com/items?itemName=jcanero.hoogle-vscode).
 
 The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional configuration for VSCode, in particular, the required extensions that have to be installed, and the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)).
 
@@ -75,13 +72,11 @@ To build the image locally, just run `docker build ./.devcontainer/ --file ./.de
 
 You can override GHC version and Stack resolver by specifying `GHC_VERSION=x.x.x` and `STACK_RESOLVER=...` respectively as a build args.
 
-To run the image, just do `docker run --rm -it haskelldevenv:latest`
-
 For example:
 * `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4`
 * `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg STACK_RESOLVER=lts-16.12`
 * `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-16.12`
 
+To run the image, just do `docker run --rm -it haskelldevenv:latest`.
+
 Valid values for `GHC_VERSION` can be found [here](https://www.haskell.org/ghc/download.html).
-
-

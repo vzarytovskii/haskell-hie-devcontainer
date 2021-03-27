@@ -5,15 +5,21 @@
     "runArgs": [],
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
-        "languageServerHaskell.hlintOn": true,
-        "languageServerHaskell.liquidOn": true,
-        "languageServerHaskell.enableHIE": true,
-        "languageServerHaskell.hieVariant": "haskell-language-server"
+        "haskell.hlintOn": true,
+        "haskell.diagnosticsOnChange": true,
+        "haskell.liquidOn": true,
+        "haskell.completionSnippetsOn": true,
+        "haskell.formatOnImportOn": true,
+        "haskell.formattingProvider": "ormolu",
+        "haskell.languageServerVariant": "haskell-language-server",
+        "hoogle-vscode.useCabalDependencies": true,
     },
     "remoteUser": "haskeller",
     "extensions": [
         "haskell.haskell",
         "phoityne.phoityne-vscode",
-        "eriksik2.vscode-ghci"
+        "eriksik2.vscode-ghci",
+        "justusadam.language-haskell",
+        "jcanero.hoogle-vscode"
     ]
 }

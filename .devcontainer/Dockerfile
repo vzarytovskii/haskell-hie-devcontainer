@@ -49,21 +49,35 @@ RUN ghcup install cabal
 # Update Cabal.
 RUN cabal update && cabal new-install cabal-install
 
+# Configure cabal
+RUN cabal user-config update -f && \
+    sed -i 's/-- ghc-options:/ghc-options: -haddock/g' ~/.cabal/config
+
 # Install hls
 RUN ghcup install hls
 
+# Install stack
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
 # Init global-project.
 RUN ((stack ghc -- --version 2>/dev/null) || true)
 
-# Set global defaults for stack.
+# Set global custom defaults for stack.
+RUN echo -e "ghc-options:\n  \"\$everything\": -haddock" >> /home/${USERNAME}/.stack/config.yaml
+
+# Set system-ghc, install-ghc and resolver for stack.
 RUN stack config --system-ghc set system-ghc --global true && \
     stack config --system-ghc set install-ghc --global false && \
     stack config --system-ghc set resolver $STACK_RESOLVER
 
 # Install global packages.
-RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle
+RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle ormolu
+
+# Generate hoogle db
+RUN hoogle generate && stack hoogle
+
+# Copy default GHCi config:
+COPY ./.ghci /home/${USERNAME} 
 
 ENV DEBIAN_FRONTEND=dialog
 
