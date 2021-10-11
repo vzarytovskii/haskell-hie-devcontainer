@@ -1,7 +1,7 @@
 FROM debian:stable
 
-ARG GHC_VERSION=8.10.4
-ARG STACK_RESOLVER=lts-17.7
+ARG GHC_VERSION=8.10.7
+ARG STACK_RESOLVER=lts-18.13
 
 ENV USERNAME=haskeller \
     USER_UID=2001 \
@@ -9,7 +9,6 @@ ENV USERNAME=haskeller \
     DEBIAN_FRONTEND=noninteractive \
     GHC_VERSION=${GHC_VERSION} \
     STACK_RESOLVER=${STACK_RESOLVER}
-
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential curl libffi-dev libffi6 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
@@ -71,13 +70,13 @@ RUN stack config --system-ghc set system-ghc --global true && \
 RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.stack/config.yaml
 
 # Install global packages.
-RUN cabal install phoityne-vscode haskell-dap hlint stylish-haskell hoogle ormolu
+RUN cabal install haskell-dap ghci-dap haskell-debug-adapter hlint apply-refact retrie stylish-haskell hoogle ormolu liquidhaskell
 
 # Generate hoogle db
 RUN hoogle generate && stack hoogle
 
 # Copy default GHCi config:
-COPY ./.ghci /home/${USERNAME} 
+COPY ./.ghci /home/${USERNAME}
 
 ENV DEBIAN_FRONTEND=dialog
 
