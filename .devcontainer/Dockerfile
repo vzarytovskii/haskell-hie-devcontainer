@@ -54,9 +54,6 @@ RUN cabal update && cabal new-install cabal-install
 RUN cabal user-config update -f && \
     sed -i 's/-- ghc-options:/ghc-options: -haddock/g' ~/.cabal/config
 
-# Install hls
-RUN ghcup install hls
-
 # Install stack
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
@@ -64,12 +61,17 @@ RUN curl -sSL https://get.haskellstack.org/ | sh
 RUN ghcup install stack
 
 # Set system-ghc, install-ghc and resolver for stack.
-RUN stack config --system-ghc set system-ghc --global true && \
-    stack config --system-ghc set install-ghc --global false && \
+RUN ((stack ghc -- --version 2>/dev/null) || true) && \
+    # Set global defaults for stack.
+    stack config --system-ghc set system-ghc true --global && \
+    stack config --system-ghc set install-ghc false --global && \
     stack config --system-ghc set resolver $STACK_RESOLVER
 
 # Set global custom defaults for stack.
 RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.stack/config.yaml
+
+# Install hls
+RUN ghcup install hls
 
 # Install global packages.
 RUN cabal install haskell-dap ghci-dap haskell-debug-adapter hlint apply-refact retrie stylish-haskell hoogle ormolu liquidhaskell
