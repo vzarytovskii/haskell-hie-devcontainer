@@ -70,17 +70,14 @@ RUN ((stack ghc -- --version 2>/dev/null) || true) && \
 # Set global custom defaults for stack.
 RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.stack/config.yaml
 
+# Install global packages.
+RUN cabal install haskell-dap ghci-dap haskell-debug-adapter hlint-3.2.7 apply-refact retrie stylish-haskell hoogle ormolu liquidhaskell
+
 # Install hls
 RUN ghcup install hls
 
-# Install global packages.
-RUN cabal install haskell-dap ghci-dap haskell-debug-adapter hlint apply-refact retrie stylish-haskell hoogle ormolu liquidhaskell
-
 # Generate hoogle db
 RUN hoogle generate && stack hoogle
-
-# Copy default GHCi config:
-COPY ./.ghci /home/${USERNAME}
 
 ENV DEBIAN_FRONTEND=dialog
 
