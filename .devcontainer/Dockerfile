@@ -2,16 +2,18 @@ FROM debian:stable
 
 ARG GHC_VERSION=8.10.7
 ARG STACK_RESOLVER=lts-18.13
+ARG CABAL_VERSION=3.6.1.0
 
 ENV USERNAME=haskeller \
     USER_UID=2001 \
     USER_GID=2001 \
     DEBIAN_FRONTEND=noninteractive \
     GHC_VERSION=${GHC_VERSION} \
-    STACK_RESOLVER=${STACK_RESOLVER}
+    STACK_RESOLVER=${STACK_RESOLVER} \
+    CABAL_VERSION=${CABAL_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
+RUN apt-get install -y --no-install-recommends  apt-utils git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
 
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -ms /bin/bash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME && \
@@ -43,7 +45,7 @@ RUN echo "Checking, whether GHC(${GHC_VERSION}) is already installed" && \
 RUN ghcup set ghc ${GHC_VERSION}
 
 # Install cabal-iinstall
-RUN ghcup install cabal
+RUN ghcup install cabal ${CABAL_VERSION}
 
 # Update Cabal.
 RUN cabal update && cabal new-install cabal-install
@@ -59,7 +61,7 @@ RUN ghcup install hls
 RUN curl -sSL https://get.haskellstack.org/ | sh
 
 # Init global-project.
-RUN ((stack ghc -- --version 2>/dev/null) || true)
+RUN ghcup install stack
 
 # Set system-ghc, install-ghc and resolver for stack.
 RUN stack config --system-ghc set system-ghc --global true && \

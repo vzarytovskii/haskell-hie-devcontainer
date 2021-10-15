@@ -5,7 +5,8 @@
         "context": "..",
         "args": {
             "GHC_VERSION": "8.10.7",
-            "STACK_RESOLVER": "lts-18.13"
+            "STACK_RESOLVER": "lts-18.13",
+            "CABAL_VERSION": "3.6.1.0",
         }
     },
     "runArgs": [],
