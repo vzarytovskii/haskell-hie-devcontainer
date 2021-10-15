@@ -13,7 +13,7 @@ jobs:
       matrix:
         ghc: ["8.10.7"]
         resolver: ["lts-18.13"]
-        cabal: ["3.6.1.0"]
+        cabal: ["3.6.2.0"]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
