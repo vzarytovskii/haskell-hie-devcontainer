@@ -1,8 +1,14 @@
 name: Docker Image CI
 on:
   push:
+    paths:
+        - ".devcontainer/Dockerfile"
+        - ".github/**"
     branches: [master]
   pull_request:
+    paths:
+        - ".devcontainer/Dockerfile"
+        - ".github/**"
     branches: [master]
 jobs:
   build:
