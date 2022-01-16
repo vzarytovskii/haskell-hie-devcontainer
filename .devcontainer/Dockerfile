@@ -63,7 +63,7 @@ RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.
 
 # Install hls
 RUN ghcup install hls {$HLS_VERSION} && \
-    ghc set hls ${HLS_VERSION}
+    ghcup set hls ${HLS_VERSION}
 
 # Install global packages.
 RUN cabal install haskell-dap ghci-dap haskell-debug-adapter hlint-3.2.7 apply-refact retrie stylish-haskell hoogle ormolu liquidhaskell
