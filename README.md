@@ -1,6 +1,6 @@
 # (A highly opinionated) Docker image for Haskell development
 
-**Note**: The way this container is set up is very opinionaed, you may want to check out [an official dev containter for Haskell](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/haskell).
+**Note**: The way this container setup is very opinionaed, you may want to check out [an official dev containter for Haskell](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/haskell).
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**

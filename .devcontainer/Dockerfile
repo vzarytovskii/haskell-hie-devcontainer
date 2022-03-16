@@ -1,10 +1,10 @@
 FROM debian:stable
 
 ARG GHC_VERSION=8.10.7
-ARG STACK_RESOLVER=lts-18.12
-ARG STACK_VERSION=2.7.3
+ARG STACK_RESOLVER=lts-18.28
+ARG STACK_VERSION=2.7.5
 ARG CABAL_VERSION=3.6.2.0
-ARG HLS_VERSION=1.5.1
+ARG HLS_VERSION=1.6.1.0
 
 ENV USERNAME=haskeller \
     USER_UID=2001 \
@@ -66,7 +66,7 @@ RUN ghcup install hls ${HLS_VERSION} && ghcup set hls ${HLS_VERSION}
 
 # Install global packages.
 # Versions are pinned, since we don't want to accidentally break anything (by always installing latest).
-RUN cabal install \
+RUN cabal install --haddock-hoogle \
     haskell-dap-0.0.15.0 \
     ghci-dap-0.0.17.0 \
     haskell-debug-adapter-0.0.35.0 \
@@ -76,7 +76,7 @@ RUN cabal install \
     stylish-haskell-0.13.0.0 \
     hoogle-5.0.18.3 \
     ormolu-0.1.3.1 \
-    liquidhaskell-0.8.10.1
+    liquidhaskell-0.8.10.2
 
 # Generate hoogle db
 RUN hoogle generate && stack hoogle
