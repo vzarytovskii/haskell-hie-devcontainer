@@ -18,10 +18,10 @@ jobs:
       max-parallel: 2
       matrix:
         ghc: ["8.10.7"]
-        resolver: ["lts-18.12"]
-        stack: ["2.7.3"]
+        resolver: ["lts-18.28"]
+        stack: ["2.7.5"]
         cabal: ["3.6.2.0"]
-        hls: ["1.5.1"]
+        hls: ["1.6.1.0"]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
