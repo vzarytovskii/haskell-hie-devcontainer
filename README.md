@@ -119,14 +119,15 @@ This was initially based on the [DevContainer for HIE (Haskell IDE Engine)](http
 
 To build the image locally, just run `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest` from the repository root.
 
-You can override GHC version, Cabal version and Stack resolver by specifying `GHC_VERSION=x.x.x`, `CABAL_VERSION=x.x.x.x` and `STACK_RESOLVER=...` respectively as a build args.
+You can override GHC version, Cabal version, Stack resolver and HLS version by specifying `GHC_VERSION=...`, `CABAL_VERSION=...`, `STACK_RESOLVER=...` and `HLS_VERSION=...` respectively as a build args.
 
 For example:
 
 - `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.10.7`
 - `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg STACK_RESOLVER=lts-18.13`
 - `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg CABAL_VERSION=3.6.2.0`
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-18.13 --build-arg CABAL_VERSION=3.6.2.0`
+- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg HLS_VERSION=1.5.1`
+- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-18.13 --build-arg CABAL_VERSION=3.6.2.0 --build-arg HLS_VERSION=1.5.1`
 
 To run the image, just do `docker run --rm -it haskelldevenv:latest`.
 
