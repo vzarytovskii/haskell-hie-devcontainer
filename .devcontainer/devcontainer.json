@@ -1,16 +1,6 @@
 {
   "name": "DevContainer for Haskell (GHC, Stack, Cabal, HIE, LSP, DAP, etc.)",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": "..",
-    "args": {
-      "GHC_VERSION": "8.10.7",
-      "STACK_RESOLVER": "lts-18.19",
-      "STACK_VERSION": "2.7.5",
-      "CABAL_VERSION": "3.6.2.0",
-      "HLS_VERSION": "1.6.1.0"
-    }
-  },
+  "image": "ghcr.io/daniel-pittman/haskell-dev-env:latest",
   "runArgs": [],
   "settings": {
     "haskell.formattingProvider": "ormolu",
