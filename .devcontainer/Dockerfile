@@ -1,7 +1,7 @@
 FROM debian:stable
 
 ARG GHC_VERSION=8.10.7
-ARG STACK_RESOLVER=lts-18.28
+ARG STACK_RESOLVER=lts-18.19
 ARG STACK_VERSION=2.7.5
 ARG CABAL_VERSION=3.6.2.0
 ARG HLS_VERSION=1.6.1.0
@@ -17,7 +17,33 @@ ENV USERNAME=haskeller \
     HLS_VERSION=${HLS_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends  apt-utils git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
+RUN apt-get install -y --no-install-recommends  \
+    apt-utils \
+    bash \
+    build-essential \
+    ca-certificates \
+    curl \
+    curl \
+    gcc \
+    git \
+    libffi-dev \
+    libffi7 \
+    libgmp-dev \
+    libgmp-dev \
+    libgmp10 \
+    libicu-dev \
+    libncurses-dev \
+    libncurses-dev \
+    libncurses5 \
+    libtinfo5 \
+    libtinfo5 \
+    lsb-release \
+    make \
+    procps \
+    sudo \
+    xz-utils \
+    z3 \
+    zlib1g-dev
 
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -ms /bin/bash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME && \
