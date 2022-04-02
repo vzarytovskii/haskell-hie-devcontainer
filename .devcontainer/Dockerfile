@@ -23,19 +23,15 @@ RUN apt-get install -y --no-install-recommends  \
     build-essential \
     ca-certificates \
     curl \
-    curl \
     gcc \
     git \
     libffi-dev \
     libffi7 \
     libgmp-dev \
-    libgmp-dev \
     libgmp10 \
     libicu-dev \
     libncurses-dev \
-    libncurses-dev \
     libncurses5 \
-    libtinfo5 \
     libtinfo5 \
     lsb-release \
     make \
