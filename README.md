@@ -1,6 +1,4 @@
-# (A highly opinionated) Docker image for Haskell development
-
-**Note**: The way this container setup is very opinionaed, you may want to check out [an official dev containter for Haskell](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/haskell).
+# A prebuilt Docker-based environment for Haskell development
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -17,23 +15,25 @@
 
 ## Visual Studio Code: DevContainer for Haskell
 
-### What is this
+### What is this?
 
-This is a DevContainer <sup>[[1](https://code.visualstudio.com/docs/remote/containers)][[2](https://code.visualstudio.com/docs/remote/containers-advanced)]</sup> environment for Visual Studio Code, allowing automatically installing the Haskell compiler (GHC), Stack, Cabal, HLS (Haskell Language Server), and the necessary Visual Studio Code extensions to set up a Haskell development environment with zero additional effort.
+This is a DevContainer <sup>[[1](https://code.visualstudio.com/docs/remote/containers)][[2](https://code.visualstudio.com/docs/remote/containers-advanced)]</sup> environment for Visual Studio Code, allowing automatically installing the Haskell compiler (GHC), Stack, Cabal, HLS (Haskell Language Server), and the necessary Visual Studio Code extensions to set up a Haskell development environment with zero additional effort. The project also contains stack templates that will be used when creating projects within the DevContainer environment.
 
 **Note**: For debugging support, please refer to [Haskell GHCi Debugger Adapter Phoityne](https://marketplace.visualstudio.com/items?itemName=phoityne.phoityne-vscode) extension documentation.
 
-### How to use this
+### How to use this project template
 
 Follow the [Getting Started](https://code.visualstudio.com/docs/remote/containers#_getting-started) instructions to configure your Visual Studio Code and Docker to use with DevContainers.
 
-Place the `.devcontainer` directory in the root of your project, and the next time you load the project, Visual Studio Code will prompt to re-open the project in a container:
+The first time you open the project in Visual Studio (VS) Code, it will prompt to re-open the project in a container:
 
 ![image](https://user-images.githubusercontent.com/601206/73298150-7bfac580-4215-11ea-81d3-a8fabab98e30.png)
 
-**Note**: building the container might take a few minutes until all dependencies have finished downloading and installing.
+Once you reopen the project it will download the latest Docker image from GitHub and use that as a the runtime for the project.
 
-### How does it work
+**Note**: downloading the image from GitHub might take a few minutes to complete.
+
+### How does it work?
 
 Visual Studio Code supports [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers) - using a Docker image as a development environment. It automates the process of creating the container image, as well as installing additional required extensions into the editor.
 
@@ -45,7 +45,7 @@ For more information and setup, read the official documentation: <https://code.v
 
 [`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) DevContainer Docker image.
 
-[`debian:stable`](https://hub.docker.com/_/debian) as a base image.
+[`stack-templates`](stack-templates) provides templates for the [Haskell Tool Stack](https://docs.haskellstack.org/en/stable/README/)
 
 Additional software installed:
 
@@ -63,7 +63,7 @@ Following VSCode extensions are installed after container is started:
 - [Integrated Haskell Shell](https://marketplace.visualstudio.com/items?itemName=eriksik2.vscode-ghci).
 - [Hoogle for VSCode](https://marketplace.visualstudio.com/items?itemName=jcanero.hoogle-vscode).
 
-The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional configuration for VSCode, in particular, the required extensions that have to be installed, the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)), and the following settings:
+[`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) provides the configuration to VS Code about how to download and run the Docker image. It also has some additional configuration for VSCode, in particular, the required extensions that have to be installed, the name of the remote user (must match the one in the [`Dockerfile`](.devcontainer/Dockerfile)), and the following settings:
 
 ```json
 {
@@ -113,22 +113,18 @@ The [`devcontainer.json`](.devcontainer/devcontainer.json) has some additional c
 }
 ```
 
-This was initially based on the [DevContainer for HIE (Haskell IDE Engine)](https://github.com/hmemcpy/haskell-hie-devcontainer) by [Igal Tabachnik](https://github.com/hmemcpy).
+This version of the VS Code Haskell environment was forked from [(A highly opinionated) Docker image for Haskell development](https://github.com/vzarytovskii/haskell-dev-env) by [Vlad Zarytovskii](https://github.com/vzarytovskii).
 
 ### How to build locally
 
-To build the image locally, just run `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest` from the repository root.
+To build the image locally, just run `build-image.sh` from inside the `.devcontainer` directory.
 
-You can override GHC version, Cabal version, Stack resolver and HLS version by specifying `GHC_VERSION=...`, `CABAL_VERSION=...`, `STACK_RESOLVER=...` and `HLS_VERSION=...` respectively as a build args.
+You can override GHC version, Cabal version, Stack resolver and HLS version by specifying `GHC_VERSION=...`, `CABAL_VERSION=...`, `STACK_VERSION=...`, `STACK_RESOLVER=...` and `HLS_VERSION=...` environment variables when running the `build-image.sh` script.
 
 For example:
 
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.10.7`
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg STACK_RESOLVER=lts-18.13`
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg CABAL_VERSION=3.6.2.0`
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg HLS_VERSION=1.5.1`
-- `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest --build-arg GHC_VERSION=8.8.4 --build-arg STACK_RESOLVER=lts-18.13 --build-arg CABAL_VERSION=3.6.2.0 --build-arg HLS_VERSION=1.5.1`
+- `GHC_VERSION=8.10.7 STACK_RESOLVER=lts-18.19 STACK_VERSION=2.7.5 CABAL_VERSION=3.6.2.0 HLS_VERSION=1.6.1.0 ./build-image.sh`
 
-To run the image, just do `docker run --rm -it haskelldevenv:latest`.
+To run the image, just do `docker run --rm -it ghcr.io/daniel-pittman/haskell-dev-env:latest`.
 
 Valid values for `GHC_VERSION` can be found [here](https://www.haskell.org/ghc/download.html).
