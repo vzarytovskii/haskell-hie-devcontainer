@@ -46,7 +46,7 @@
       "**/.DS_Store": true,
       "**/*.olean": true
     },
-    "editor.fontFamily": "Hasklig,'Fira Code','Courier New',monospace",
+    "editor.fontFamily": "Hasklig,'Fira Code',Consolas,'Courier New',monospace",
     "editor.fontLigatures": true
   },
   "remoteUser": "haskeller",
