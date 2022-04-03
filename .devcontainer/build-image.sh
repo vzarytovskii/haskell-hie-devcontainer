@@ -6,8 +6,8 @@ set -xe
 GHC_VERSION=${GHC_VERSION:="8.10.7"}
 STACK_RESOLVER=${STACK_RESOLVER:="lts-18.19"}
 STACK_VERSION=${STACK_VERSION:="2.7.5"}
-CABAL_VERSION=${GHC_VERSION:="3.6.2.0"}
-HLS_VERSION=${GHC_VERSION:="1.6.1.0"}
+CABAL_VERSION=${CABAL_VERSION:="3.6.2.0"}
+HLS_VERSION=${HLS_VERSION:="1.6.1.0"}
 
 docker buildx build \
     --tag ghcr.io/daniel-pittman/haskell-dev-env:latest \
@@ -16,6 +16,6 @@ docker buildx build \
     --build-arg GHC_VERSION=${GHC_VERSION} \
     --build-arg STACK_RESOLVER=${STACK_RESOLVER} \
     --build-arg STACK_VERSION=${STACK_VERSION} \
-    --build-arg CABAL_VERSION=${GHC_VERSION} \
+    --build-arg CABAL_VERSION=${CABAL_VERSION} \
     --build-arg HLS_VERSION=${GHC_VERSION} \
     .
