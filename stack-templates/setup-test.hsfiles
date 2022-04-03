@@ -1,0 +1,265 @@
+{-# START_FILE stack.yaml #-}
+# Resolver to choose a 'specific' stackage snapshot or a compiler version.
+# A snapshot resolver dictates the compiler version and the set of packages
+# to be used for project dependencies. For example:
+#
+# resolver: lts-3.5
+# resolver: nightly-2015-09-21
+# resolver: ghc-7.10.2
+#
+# resolve to lts-18.19, which has ghc 8.10.7 that's compatible with the current haskell
+# language server. This should be changed when HLS is a higher version.
+resolver: lts-18.19
+
+# default to using the system GHC if we can--and we hope Docker will have the right one for us
+system-ghc: true
+
+# User packages to be built.
+# Various formats can be used as shown in the example below.
+#
+# packages:
+# - some-directory
+# - https://example.com/foo/bar/baz-0.0.2.tar.gz
+#   subdirs:
+#   - auto-update
+#   - wai
+packages:
+- .
+# Dependency packages to be pulled from upstream that are not in the resolver.
+# These entries can reference officially published versions as well as
+# forks / in-progress versions pinned to a git hash. For example:
+#
+# extra-deps:
+# - acme-missiles-0.3
+# - git: https://github.com/commercialhaskell/stack.git
+#   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
+#
+# extra-deps: []
+
+# Override default flag values for local packages and extra-deps
+# flags: {}
+
+# Extra package databases containing global packages
+# extra-package-dbs: []
+
+# Control whether we use the GHC we find on the path
+# system-ghc: true
+#
+# Require a specific version of stack, using version ranges
+# require-stack-version: -any # Default
+# require-stack-version: ">=2.7"
+#
+# Override the architecture used by stack, especially useful on Windows
+# arch: i386
+# arch: x86_64
+#
+# Extra directories used by stack for building
+# extra-include-dirs: [/path/to/dir]
+# extra-lib-dirs: [/path/to/dir]
+#
+# Allow a newer minor version of GHC than the snapshot specifies
+# compiler-check: newer-minor
+
+{-# START_FILE package.yaml #-}
+name:                {{name}}
+version:             0.1.0.0
+github:              "{{github-username}}{{^github-username}}githubuser{{/github-username}}/{{name}}"
+license:             BSD3
+author:              "{{author-name}}{{^author-name}}Author name here{{/author-name}}"
+maintainer:          "{{author-email}}{{^author-email}}example@example.com{{/author-email}}"
+copyright:           "{{copyright}}{{^copyright}}{{year}}{{^year}}2019{{/year}} {{author-name}}{{^author-name}}Author name here{{/author-name}}{{/copyright}}"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            {{category}}{{^category}}Web{{/category}}
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         "Stack template project for COMP 3351"
+
+dependencies:
+- base >= 4.7 && < 5
+- hspec
+
+default-extensions:
+-  EmptyCase
+-  FlexibleContexts
+-  FlexibleInstances
+-  InstanceSigs
+-  MultiParamTypeClasses
+-  LambdaCase
+-  MultiWayIf
+-  NamedFieldPuns
+-  TupleSections
+-  DeriveFoldable
+-  DeriveFunctor
+-  DeriveGeneric
+-  DeriveLift
+-  DeriveTraversable
+-  DerivingStrategies
+-  GeneralizedNewtypeDeriving
+-  StandaloneDeriving
+-  BangPatterns
+-  KindSignatures
+-  TypeOperators
+-  OverloadedStrings
+-  ScopedTypeVariables
+-  TypeApplications
+-  ConstraintKinds
+
+library:
+  source-dirs: src
+
+executables:
+  {{name}}-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -haddock
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wredundant-constraints
+    dependencies:
+    - {{name}}
+
+tests:
+  {{name}}-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -haddock
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wredundant-constraints
+    dependencies:
+    - {{name}}
+
+{-# START_FILE Setup.hs #-}
+import Distribution.Simple
+main = defaultMain
+
+{-# START_FILE test/Spec.hs #-}
+-- file test/Spec.hs
+{-# OPTIONS_GHC -F -pgmF hspec-discover #-}
+
+{-# START_FILE src/Lib.hs #-}
+module Lib
+    ( someFunc
+    ) where
+
+someFunc :: IO ()
+someFunc = putStrLn "someFunc"
+
+{-# START_FILE app/Main.hs #-}
+module Main where
+
+import Lib
+
+main :: IO ()
+main = someFunc
+
+
+{-# START_FILE README.md #-}
+# {{name}}
+
+{-# START_FILE ChangeLog.md #-}
+# {{name}}
+
+{-# START_FILE hie.yaml #-}
+cradle:
+  stack:
+
+{-# START_FILE src/WeekOne.hs #-}
+module WeekOne where
+
+pow :: (Eq b, Num b) => (b, b) -> b
+pow (x, y) = 
+    if y == 0 
+        then 1
+        else x * pow(x, y - 1)
+
+
+pow2 :: (Eq p, Num p) => p -> p -> p
+pow2 x y = 
+    if y == 0
+        then 1
+        else x * pow2 x (y - 1)
+
+cube :: (Eq p, Num p) => p -> p
+cube = flip pow2 3
+
+{-# START_FILE test/WeekOneSpec.hs #-}
+module WeekOneSpec where
+
+import Test.Hspec
+import WeekOne
+
+spec :: Spec
+spec = do
+    describe "pow function" $ do
+        it "raising something to exponent 0 is 1" $
+            pow (4, 0) `shouldBe` (1 :: Integer)
+        it "raising k to l should be k ** l" $ 
+            pow (5, 3) `shouldBe` (5 ** 3 :: Double)
+    describe "pow2 function" $ do
+        it "raising something to exponent 0 is 1" $
+            pow2 4 0 `shouldBe` (1 :: Integer)
+        it "raising k to l should be k ** l" $
+            pow2 8 17 `shouldBe` (8 ** 17 :: Double)
+    describe "cube function" $ do
+        it "cubing 0 should be 0" $
+            cube 0 `shouldBe` (0 :: Double)
+        it "cubing 42 should be 42**3" $
+            cube 42 `shouldBe` (42 ** 3 :: Double)
+
+
+{-# START_FILE .gitignore #-}
+dist
+dist-*
+cabal-dev
+*.o
+*.hi
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+*.ll
+*.tokens
+**/out/
+*~
+\#*\#
+*.swp
+*.bak
+*.class
+*.dep
+*.zo
+**/compiled/
+**/workspace.xml
+.hpc
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+*.prof
+*.aux
+*.hp
+*.eventlog
+.stack-work/
+cabal.project.local
+cabal.project.local~
+.HTF/
+.ghc.environment.*
