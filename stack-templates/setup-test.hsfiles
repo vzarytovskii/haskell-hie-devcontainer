@@ -184,6 +184,48 @@ main = someFunc
 cradle:
   stack:
 
+{-# START_FILE src/WeekOne.hs #-}
+module WeekOne where
+
+pow :: (Eq b, Num b) => (b, b) -> b
+pow (x, y) = 
+    if y == 0 
+        then 1
+        else x * pow(x, y - 1)
+
+
+pow2 :: (Eq p, Num p) => p -> p -> p
+pow2 x y = 
+    if y == 0
+        then 1
+        else x * pow2 x (y - 1)
+
+cube :: (Eq p, Num p) => p -> p
+cube = flip pow2 3
+
+{-# START_FILE test/WeekOneSpec.hs #-}
+module WeekOneSpec where
+
+import Test.Hspec
+import WeekOne
+
+spec :: Spec
+spec = do
+    describe "pow function" $ do
+        it "raising something to exponent 0 is 1" $
+            pow (4, 0) `shouldBe` (1 :: Integer)
+        it "raising k to l should be k ** l" $ 
+            pow (5, 3) `shouldBe` (5 ** 3 :: Double)
+    describe "pow2 function" $ do
+        it "raising something to exponent 0 is 1" $
+            pow2 4 0 `shouldBe` (1 :: Integer)
+        it "raising k to l should be k ** l" $
+            pow2 8 17 `shouldBe` (8 ** 17 :: Double)
+    describe "cube function" $ do
+        it "cubing 0 should be 0" $
+            cube 0 `shouldBe` (0 :: Double)
+        it "cubing 42 should be 42**3" $
+            cube 42 `shouldBe` (42 ** 3 :: Double)
 
 
 {-# START_FILE .gitignore #-}

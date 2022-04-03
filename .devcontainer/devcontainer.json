@@ -21,7 +21,7 @@
     "haskell.plugin.class.globalOn": true,
     "haskell.plugin.retrie.globalOn": true,
     "haskell.plugin.tactics.globalOn": true,
-    "haskell.plugin.tactics.config.hole_severity": "hint",
+    "haskell.plugin.tactics.config.hole_severity": 4,
     "haskell.plugin.tactic.config.max_use_ctor_actions": 5,
     "haskell.plugin.tactics.config.timeout_duration": 5,
     "haskell.plugin.tactics.config.proofstate_styling": true,
@@ -45,13 +45,14 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/*.olean": true
-    }
+    },
+    "editor.fontFamily": "Hasklig,'Fira Code',Consolas,Menlo,Monaco,'Courier New',monospace",
+    "editor.fontLigatures": true
   },
   "remoteUser": "haskeller",
   "extensions": [
     "haskell.haskell",
     "phoityne.phoityne-vscode",
-    "eriksik2.vscode-ghci",
-    "jcanero.hoogle-vscode"
+    "jcanero.hoogle-vscode",
   ]
 }
