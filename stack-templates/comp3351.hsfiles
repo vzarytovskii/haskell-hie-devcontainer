@@ -177,6 +177,9 @@ main = someFunc
 {-# START_FILE README.md #-}
 # {{name}}
 
+{-# START_FILE ChangeLog.md #-}
+# {{name}}
+
 {-# START_FILE hie.yaml #-}
 cradle:
   stack:
