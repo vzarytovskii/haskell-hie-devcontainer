@@ -46,14 +46,13 @@
       "**/.DS_Store": true,
       "**/*.olean": true
     },
-    "editor.fontFamily": "Hasklig,'Fira Code',Consolas,'Courier New',monospace",
+    "editor.fontFamily": "Hasklig,'Fira Code',Consolas,Menlo,Monaco,'Courier New',monospace",
     "editor.fontLigatures": true
   },
   "remoteUser": "haskeller",
   "extensions": [
     "haskell.haskell",
     "phoityne.phoityne-vscode",
-    "eriksik2.vscode-ghci",
-    "jcanero.hoogle-vscode"
+    "jcanero.hoogle-vscode",
   ]
 }
