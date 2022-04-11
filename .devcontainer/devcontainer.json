@@ -1,6 +1,6 @@
 {
   "name": "DevContainer for Haskell (GHC, Stack, Cabal, HIE, LSP, DAP, etc.)",
-  "image": "ghcr.io/daniel-pittman/haskell-dev-env:latest",
+  "image": "ghcr.io/daniel-pittman/haskell-dev-env:ghc_8.10.7-resolver_lts-18.19-stack_2.7.5-ghc_8.10.7-hls_1.6.1.0",
   "runArgs": [],
   "settings": {
     "haskell.formattingProvider": "ormolu",
