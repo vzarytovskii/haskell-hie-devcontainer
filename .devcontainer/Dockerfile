@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:bullseye AS base
 
 ARG GHC_VERSION=8.10.7
 ARG STACK_RESOLVER=lts-18.19
@@ -17,14 +17,18 @@ ENV USERNAME=haskeller \
     HLS_VERSION=${HLS_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends  \
+RUN apt-get install -y  \
     apt-utils \
     bash \
     build-essential \
     ca-certificates \
     curl \
+    dpkg-dev \
     gcc \
+    g++ \
     git \
+    gnupg \
+    libc6-dev \
     libffi-dev \
     libffi7 \
     libgmp-dev \
@@ -32,14 +36,28 @@ RUN apt-get install -y --no-install-recommends  \
     libicu-dev \
     libncurses-dev \
     libncurses5 \
+    libnuma-dev \
+    libsqlite3-dev \
+    libtinfo-dev \
     libtinfo5 \
     lsb-release \
     make \
+    netbase \
+    openssh-client \
     procps \
+    software-properties-common \
     sudo \
+    wget \
     xz-utils \
     z3 \
     zlib1g-dev
+
+# New build stage
+# https://docs.docker.com/develop/develop-images/multistage-build/
+FROM base as tools
+
+# Install LLVM
+RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh && chmod +x /tmp/llvm.sh && /tmp/llvm.sh 12 && rm /tmp/llvm.sh
 
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -ms /bin/bash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME && \
@@ -55,20 +73,11 @@ RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
     BOOTSTRAP_HASKELL_NO_UPGRADE=yes
 
+# Install ghcup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
 # Set the GHC version.
 RUN ghcup install ghc ${GHC_VERSION} && ghcup set ghc ${GHC_VERSION}
-
-# Install cabal-iinstall
-RUN ghcup install cabal ${CABAL_VERSION} && ghcup set cabal ${CABAL_VERSION}
-
-# Update Cabal.
-RUN cabal update && cabal new-install cabal-install
-
-# Configure cabal
-RUN cabal user-config update -f && \
-    sed -i 's/-- ghc-options:/ghc-options: -haddock/g' ~/.cabal/config
 
 # Install stack
 RUN ghcup install stack ${STACK_VERSION} && ghcup set stack ${STACK_VERSION}
@@ -86,9 +95,23 @@ RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.
 # Install hls
 RUN ghcup install hls ${HLS_VERSION} && ghcup set hls ${HLS_VERSION}
 
+# New build stage
+FROM tools as cabal
+
+# Install cabal and cabal-install
+RUN ghcup install cabal ${CABAL_VERSION} && ghcup set cabal ${CABAL_VERSION}
+RUN cabal update && cabal new-install -j1 cabal-install
+
+# Configure cabal
+RUN cabal user-config update -f && \
+    sed -i 's/-- ghc-options:/ghc-options: -haddock/g' /home/${USERNAME}/.cabal/config
+
+# New build stage
+FROM cabal as cabal1
+
 # Install global packages.
 # Versions are pinned, since we don't want to accidentally break anything (by always installing latest).
-RUN cabal install --haddock-hoogle \
+RUN cabal install -j1 --haddock-hoogle -v \
     haskell-dap-0.0.15.0 \
     ghci-dap-0.0.17.0 \
     haskell-debug-adapter-0.0.35.0 \
@@ -101,7 +124,7 @@ RUN cabal install --haddock-hoogle \
     liquidhaskell-0.8.10.2
 
 # Generate hoogle db
-RUN hoogle generate && stack hoogle
+RUN stack exec hoogle generate && stack hoogle
 
 ENV DEBIAN_FRONTEND=dialog
 
