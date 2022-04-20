@@ -22,3 +22,6 @@ docker buildx build \
     --build-arg HLS_VERSION=${HLS_VERSION} \
     "$@" \
     .
+
+docker manifest inspect --verbose ghcr.io/daniel-pittman/haskell-dev-env:ghc_${GHC_VERSION}-resolver_${STACK_RESOLVER}-stack_${STACK_VERSION}-ghc_${GHC_VERSION}-hls_${HLS_VERSION}-$(uname -m)
+docker manifest inspect --insecure --verbose ghcr.io/daniel-pittman/haskell-dev-env:ghc_${GHC_VERSION}-resolver_${STACK_RESOLVER}-stack_${STACK_VERSION}-ghc_${GHC_VERSION}-hls_${HLS_VERSION}-$(uname -m)
