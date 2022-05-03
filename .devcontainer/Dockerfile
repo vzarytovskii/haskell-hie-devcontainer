@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:bullseye as base
 
 ARG GHC_VERSION=8.10.7
 ARG STACK_RESOLVER=lts-18.28
@@ -17,7 +17,7 @@ ENV USERNAME=haskeller \
     HLS_VERSION=${HLS_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends  apt-utils git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential curl libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libicu-dev libncurses-dev z3
+RUN apt-get install -y --no-install-recommends  apt-utils git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libicu-dev z3
 
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -ms /bin/bash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME && \
@@ -32,6 +32,8 @@ RUN echo "export PATH=$PATH" >> /home/$USERNAME/.profile
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=yes \
     BOOTSTRAP_HASKELL_NO_UPGRADE=yes
+
+FROM base as tooling
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh
 
@@ -64,9 +66,11 @@ RUN printf "ghc-options:\n  \"\$everything\": -haddock\n" >> /home/${USERNAME}/.
 # Install hls
 RUN ghcup install hls ${HLS_VERSION} && ghcup set hls ${HLS_VERSION}
 
+FROM tooling as packages
+
 # Install global packages.
 # Versions are pinned, since we don't want to accidentally break anything (by always installing latest).
-RUN cabal install --haddock-hoogle \
+RUN cabal install --haddock-hoogle -v \
     haskell-dap-0.0.15.0 \
     ghci-dap-0.0.17.0 \
     haskell-debug-adapter-0.0.35.0 \

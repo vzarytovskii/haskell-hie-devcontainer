@@ -5,7 +5,7 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
-- [Docker image for Haskell development](#docker-image-for-haskell-development)
+- [(A highly opinionated) Docker image for Haskell development](#a-highly-opinionated-docker-image-for-haskell-development)
   - [Visual Studio Code: DevContainer for Haskell](#visual-studio-code-devcontainer-for-haskell)
     - [What is this](#what-is-this)
     - [How to use this](#how-to-use-this)
