@@ -1,12 +1,14 @@
 FROM debian:bullseye as base
 
+ARG USERNAME=vscode
 ARG GHC_VERSION=8.10.7
-ARG STACK_RESOLVER=lts-18.28
 ARG STACK_VERSION=2.7.5
+ARG STACK_RESOLVER=lts-18.28
 ARG CABAL_VERSION=3.6.2.0
-ARG HLS_VERSION=1.6.1.0
+ARG HLS_VERSION=1.7.0.0
+ARG LLVM_VERSION=12
 
-ENV USERNAME=haskeller \
+ENV USERNAME=${USERNAME} \
     USER_UID=2001 \
     USER_GID=2001 \
     DEBIAN_FRONTEND=noninteractive \
@@ -14,10 +16,13 @@ ENV USERNAME=haskeller \
     STACK_RESOLVER=${STACK_RESOLVER} \
     STACK_VERSION=${STACK_VERSION} \
     CABAL_VERSION=${CABAL_VERSION} \
-    HLS_VERSION=${HLS_VERSION}
+    HLS_VERSION=${HLS_VERSION} \
+    LLVM_VERSION=${LLVM_VERSION}
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends  apt-utils git curl xz-utils gcc make libtinfo5 libgmp-dev zlib1g-dev bash sudo procps lsb-release ca-certificates build-essential libffi-dev libffi7 libgmp-dev libgmp10 libncurses-dev libncurses5 libicu-dev z3
+RUN apt-get install -y --no-install-recommends apt-utils bash build-essential ca-certificates curl gcc git gnupg libffi-dev libffi7 libgmp-dev libgmp-dev libgmp10 libicu-dev libncurses-dev libncurses5 libnuma1 libnuma-dev libtinfo5 lsb-release make procps software-properties-common sudo wget xz-utils z3 zlib1g-dev
+
+RUN wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh && chmod +x /tmp/llvm.sh && /tmp/llvm.sh ${LLVM_VERSION} && rm /tmp/llvm.sh
 
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd -ms /bin/bash -K MAIL_DIR=/dev/null --uid $USER_UID --gid $USER_GID -m $USERNAME && \
