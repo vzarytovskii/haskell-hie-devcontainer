@@ -14,6 +14,12 @@ resolver: lts-18.19
 # default to using the system GHC if we can--and we hope Docker will have the right one for us
 system-ghc: true
 
+# fix some problems with hspec and windows terminals, this only affects windows 
+# machines and is not needed on linux Docker installs
+#flags:
+#  mintty:
+#    Win32-2-13-1: false
+
 # User packages to be built.
 # Various formats can be used as shown in the example below.
 #
