@@ -130,7 +130,7 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     - -haddock
-    - -W
+    - -Wall
     - -Wcompat
     - -Wincomplete-record-updates
     - -Wincomplete-uni-patterns
@@ -147,7 +147,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     - -haddock
-    - -W
+    - -Wall
     - -Wcompat
     - -Wincomplete-record-updates
     - -Wincomplete-uni-patterns
