@@ -4,7 +4,7 @@ ARG USERNAME=vscode
 ARG GHC_VERSION=9.0.2
 ARG STACK_VERSION=2.7.5
 ARG STACK_RESOLVER=lts-19.16
-ARG CABAL_VERSION=3.6.2.0
+ARG CABAL_VERSION=3.4.1.0
 ARG HLS_VERSION=1.7.0.0
 ARG LLVM_VERSION=12
 
@@ -84,10 +84,8 @@ RUN cabal install --haddock-hoogle -v \
     hlint-3.3.6 \
     apply-refact-0.9.3.0 \
     retrie-1.1.0.0 \
-    stylish-haskell-0.13.0.0 \
     hoogle-5.0.18.3 \
-    ormolu-0.3.1.0 \
-    liquidhaskell-0.8.10.2
+    ormolu-0.3.1.0
 
 FROM packages as hoogle
 
