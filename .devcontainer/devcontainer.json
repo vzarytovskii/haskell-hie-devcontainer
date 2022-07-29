@@ -33,7 +33,7 @@
     "haskell.checkProject": true,
     "haskell.formattingProvider": "ormolu",
     "haskell.indentationRules.enabled": true,
-    "haskell.liquidOn": true,
+    "haskell.liquidOn": false,
     "haskell.manageHLS": "GHCup",
     "haskell.maxCompletions": 40,
     "haskell.openDocumentationInHackage": false,
