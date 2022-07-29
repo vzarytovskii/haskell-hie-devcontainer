@@ -87,7 +87,7 @@ RUN cabal install --haddock-hoogle -v \
     stylish-haskell-0.13.0.0 \
     hoogle-5.0.18.3 \
     ormolu-0.3.1.0 \
-    liquidhaskell-0.8.10.7
+    liquidhaskell-0.8.10.2
 
 FROM packages as hoogle
 
