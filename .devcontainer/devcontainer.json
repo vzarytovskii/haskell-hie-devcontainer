@@ -8,7 +8,7 @@
       "GHC_VERSION": "9.0.2",
       "STACK_VERSION": "2.7.5",
       "STACK_RESOLVER": "lts-19.16",
-      "CABAL_VERSION": "3.6.3.0",
+      "CABAL_VERSION": "3.6.2.0",
       "HLS_VERSION": "1.7.0.0",
       "LLVM_VERSION": "12"
     },

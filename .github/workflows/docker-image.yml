@@ -20,7 +20,7 @@ jobs:
         ghc: ["9.0.2"]
         stack: ["2.7.5"]
         resolver: ["lts-19.16"]
-        cabal: ["3.6.3.0"]
+        cabal: ["3.6.2.0"]
         hls: ["1.7.0.0"]
     steps:
     - uses: actions/checkout@v2
