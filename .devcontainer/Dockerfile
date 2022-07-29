@@ -1,10 +1,10 @@
-FROM debian:bullseye as base
+FROM debian as base
 
 ARG USERNAME=vscode
-ARG GHC_VERSION=8.10.7
+ARG GHC_VERSION=9.0.2
 ARG STACK_VERSION=2.7.5
-ARG STACK_RESOLVER=lts-18.28
-ARG CABAL_VERSION=3.6.2.0
+ARG STACK_RESOLVER=lts-19.16
+ARG CABAL_VERSION=3.6.3.0
 ARG HLS_VERSION=1.7.0.0
 ARG LLVM_VERSION=12
 
@@ -18,6 +18,8 @@ ENV USERNAME=${USERNAME} \
     CABAL_VERSION=${CABAL_VERSION} \
     HLS_VERSION=${HLS_VERSION} \
     LLVM_VERSION=${LLVM_VERSION}
+
+RUN ulimit -n 8192
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends apt-utils bash build-essential ca-certificates curl gcc git gnupg libffi-dev libffi7 libgmp-dev libgmp-dev libgmp10 libicu-dev libncurses-dev libncurses5 libnuma1 libnuma-dev libtinfo5 lsb-release make procps software-properties-common sudo wget xz-utils z3 zlib1g-dev
@@ -79,13 +81,15 @@ RUN cabal install --haddock-hoogle -v \
     haskell-dap-0.0.15.0 \
     ghci-dap-0.0.17.0 \
     haskell-debug-adapter-0.0.35.0 \
-    hlint-3.2.7 \
+    hlint-3.3.6 \
     apply-refact-0.9.3.0 \
     retrie-1.1.0.0 \
     stylish-haskell-0.13.0.0 \
     hoogle-5.0.18.3 \
-    ormolu-0.1.3.1 \
-    liquidhaskell-0.8.10.2
+    ormolu-0.3.1.0 \
+    liquidhaskell-0.8.10.7
+
+FROM packages as hoogle
 
 # Generate hoogle db
 RUN hoogle generate && stack hoogle
