@@ -77,7 +77,8 @@ FROM tooling as packages
 
 # Install global packages.
 # Versions are pinned, since we don't want to accidentally break anything (by always installing latest).
-RUN cabal install --haddock-hoogle -v \
+RUN cabal install --haddock-hoogle \
+    fsnotify-0.3.0.1 \
     haskell-dap-0.0.15.0 \
     ghci-dap-0.0.17.0 \
     haskell-debug-adapter-0.0.35.0 \
