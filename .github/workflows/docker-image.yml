@@ -17,11 +17,11 @@ jobs:
       fail-fast: true
       max-parallel: 2
       matrix:
-        ghc: ["9.0.2"]
-        stack: ["2.7.5"]
-        resolver: ["lts-19.16"]
-        cabal: ["3.6.2.0"]
-        hls: ["1.7.0.0"]
+        ghc: ["9.4.4"]
+        stack: ["recommended"]
+        resolver: ["default"]
+        cabal: ["recommended"]
+        hls: ["recommended"]
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image

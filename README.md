@@ -149,7 +149,7 @@ This was initially based on the [DevContainer for HIE (Haskell IDE Engine)](http
 
 To build the image locally, just run `docker build ./.devcontainer/ --file ./.devcontainer/Dockerfile --tag haskelldevenv:latest` in the repository root.
 
-You can override GHC version, Cabal version, Stack resolver and HLS version by specifying `GHC_VERSION=...`, `CABAL_VERSION=...`, `STACK_RESOLVER=...` and `HLS_VERSION=...` respectively as a build args.
+You can override GHC version, Cabal version, Stack resolver and HLS version by specifying `GHC_VERSION=...`, `CABAL_VERSION=...`, `STACK_RESOLVER=...` and `HLS_VERSION=...` respectively as build args.
 
 For example:
 
