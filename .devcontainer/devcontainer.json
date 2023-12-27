@@ -5,12 +5,12 @@
   "build": {
     "args": {
       "USERNAME": "vscode",
-      "GHC_VERSION": "9.4.4",
+      "GHC_VERSION": "9.6.3",
       "STACK_VERSION": "recommended",
-      "STACK_RESOLVER": "default",
+      "STACK_RESOLVER": "nightly",
       "CABAL_VERSION": "recommended",
       "HLS_VERSION": "recommended",
-      "LLVM_VERSION": "14"
+      "LLVM_VERSION": "17"
     },
     "context": "..",
     "dockerfile": "Dockerfile"
